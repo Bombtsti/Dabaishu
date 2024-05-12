@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lian.xhs.mapper.TLikeOrCollectionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lian.xhs.entity.TLikeOrCollection">
+        <id column="id" property="id" />
+        <result column="uid" property="uid" />
+        <result column="like_or_collection_id" property="likeOrCollectionId" />
+        <result column="publish_uid" property="publishUid" />
+        <result column="type" property="type" />
+        <result column="timestamp" property="timestamp" />
+        <result column="creator" property="creator" />
+        <result column="create_date" property="createDate" />
+        <result column="updater" property="updater" />
+        <result column="update_date" property="updateDate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, uid, like_or_collection_id, publish_uid, type, timestamp, creator, create_date, updater, update_date
+    </sql>
+
+</mapper>

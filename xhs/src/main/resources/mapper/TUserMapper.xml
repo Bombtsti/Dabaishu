@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lian.xhs.mapper.TUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lian.xhs.entity.TUser">
+        <id column="id" property="id" />
+        <result column="yx_id" property="yxId" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="avatar" property="avatar" />
+        <result column="gender" property="gender" />
+        <result column="phone" property="phone" />
+        <result column="email" property="email" />
+        <result column="description" property="description" />
+        <result column="status" property="status" />
+        <result column="user_cover" property="userCover" />
+        <result column="birthday" property="birthday" />
+        <result column="address" property="address" />
+        <result column="trend_count" property="trendCount" />
+        <result column="follower_count" property="followerCount" />
+        <result column="fan_count" property="fanCount" />
+        <result column="creator" property="creator" />
+        <result column="create_date" property="createDate" />
+        <result column="updater" property="updater" />
+        <result column="update_date" property="updateDate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, yx_id, username, password, avatar, gender, phone, email, description, status, user_cover, birthday, address, trend_count, follower_count, fan_count, creator, create_date, updater, update_date
+    </sql>
+
+    <select id="selectUserById" resultMap="BaseResultMap" parameterType="String">
+        select * from t_user where id = #{id}
+    </select>
+
+    <select id="selectUserByUsername" resultMap="BaseResultMap" parameterType="String">
+        select * from t_user where username = #{username}
+    </select>
+
+</mapper>

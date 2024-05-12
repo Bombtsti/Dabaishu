@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lian.xhs.mapper.TCategoryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lian.xhs.entity.TCategory">
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="pid" property="pid" />
+        <result column="sort" property="sort" />
+        <result column="like_count" property="likeCount" />
+        <result column="description" property="description" />
+        <result column="normal_cover" property="normalCover" />
+        <result column="hot_cover" property="hotCover" />
+        <result column="creator" property="creator" />
+        <result column="create_date" property="createDate" />
+        <result column="updater" property="updater" />
+        <result column="update_date" property="updateDate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, title, pid, sort, like_count, description, normal_cover, hot_cover, creator, create_date, updater, update_date
+    </sql>
+
+    <select id="getCategoryTreeData" resultMap="BaseResultMap">
+        select * from t_category
+    </select>
+
+</mapper>

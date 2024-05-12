@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lian.xhs.mapper.TNoteMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lian.xhs.entity.TNote">
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="content" property="content" />
+        <result column="note_cover" property="noteCover" />
+        <result column="note_cover_height" property="noteCoverHeight" />
+        <result column="uid" property="uid" />
+        <result column="cid" property="cid" />
+        <result column="cpid" property="cpid" />
+        <result column="urls" property="urls" />
+        <result column="count" property="count" />
+        <result column="sort" property="sort" />
+        <result column="pinned" property="pinned" />
+        <result column="status" property="status" />
+        <result column="type" property="type" />
+        <result column="view_count" property="viewCount" />
+        <result column="like_count" property="likeCount" />
+        <result column="collection_count" property="collectionCount" />
+        <result column="comment_count" property="commentCount" />
+        <result column="creator" property="creator" />
+        <result column="create_date" property="createDate" />
+        <result column="updater" property="updater" />
+        <result column="update_date" property="updateDate" />
+    </resultMap>
+
+    <resultMap id="SearchNoteVoResultMap" type="com.lian.xhs.vo.NoteSearchVo">
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="content" property="content" />
+        <result column="note_cover" property="noteCover" />
+        <result column="note_cover_height" property="noteCoverHeight" />
+        <result column="cid" property="cid" />
+        <result column="categoryName" property="categoryName" />
+        <result column="cpid" property="cpid" />
+        <result column="categoryParentName" property="categoryParentName" />
+        <result column="uid" property="uid" />
+        <result column="uid" property="username" />
+        <result column="avatar" property="avatar" />
+        <result column="urls" property="urls" />
+        <result column="tags" property="tags" />
+        <result column="pinned" property="pinned" />
+        <result column="status" property="status" />
+        <result column="like_count" property="likeCount" />
+        <result column="view_ount" property="viewCount" />
+        <result column="create_date" property="time" />
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, title, content, note_cover, note_cover_height, uid, cid, cpid, urls, count, sort, pinned, status, type, view_count, like_count, collection_count, comment_count, creator, create_date, updater, update_date
+    </sql>
+
+    <select id="getSearchNoteVoList" resultMap="SearchNoteVoResultMap">
+SELECT n.id, n.title, n.content, n.note_cover, n.note_cover_height, n.cid,
+c.title categoryName, n.cpid, c.title categoryParentName,
+u.username, u.avatar, GROUP_CONCAT(t.title) tags,
+n.urls, n.pinned, n.status, n.like_count,n.view_count,Date(n.create_date) time
+FROM t_note n
+inner join t_category c on n.cid = c.id
+inner join t_user u on n.uid = u.id
+left join t_tag_note_relation tn on n.id = tn.nid
+left join t_tag t on tn.tid = t.id
+GROUP BY n.id
+ORDER BY n.create_date desc
+    </select>
+
+        <select id="getSearchNoteVoListByDTO" resultMap="SearchNoteVoResultMap" parameterType="String">
+SELECT n.id, n.title, n.content, n.note_cover, n.note_cover_height, n.cid,
+c.title categoryName, n.cpid, c.title categoryParentName,
+u.username, u.avatar, GROUP_CONCAT(t.title) tags,
+n.urls, n.pinned, n.status, n.like_count,n.view_count,Date(n.create_date) time
+FROM t_note n
+inner join t_category c on n.cid = c.id and n.cpid=#{cpid}
+inner join t_user u on n.uid = u.id
+left join t_tag_note_relation tn on n.id = tn.nid
+left join t_tag t on tn.tid = t.id
+GROUP BY n.id
+ORDER BY n.create_date desc
+    </select>
+
+    <select id="getNodeById" resultMap="BaseResultMap" parameterType="String">
+        select * from t_note where id = #{noteid}
+    </select>
+
+</mapper>
